@@ -27,3 +27,15 @@ profiles.yml
 # Temporary files
 tmp/
 temp/
+# Fichiers sources dupliqués à la racine
+/Construisez et testez une infrastructure de données - OpenClassrooms.pdf
+/Data_Source1_011024-071024.json
+/FAE_P8_DE.pdf
+/Weather+Underground+-+Ichtegem,+BE (1).xlsx
+/Weather+Underground+-+Ichtegem,+BE.xlsx
+/Weather+Underground+-+La+Madeleine,+FR.xlsx
+
+# Fichiers générés par dbt init non utilisés
+dbt_greencoop/README.md
+dbt_greencoop/.gitignore
+dbt_greencoop/package-lock.yml
