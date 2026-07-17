@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Logs
+logs/
+*.log
+
+# dbt
+dbt_greencoop/logs/
+dbt_greencoop/target/
+dbt_greencoop/dbt_packages/
+
+# Credentials / secrets
+profiles.yml
+.env
+*.key
+*.pem
+
+# Temporary files
+tmp/
+temp/

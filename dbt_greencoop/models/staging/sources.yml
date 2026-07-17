@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: raw
+    database: weather_db
+    schema: raw
+    tables:
+      - name: infoclimat_raw
+        description: "Fichier JSON brut InfoClimat chargé dans 
+PostgreSQL."
+        columns:
+          - name: id
+            tests:
+              - not_null
+              - unique
+          - name: raw_data
+            tests:
+              - not_null
+
+      - name: weather_underground_ichtegem_raw
+        description: "Données brutes Weather Underground pour la station 
+Ichtegem."
+        columns:
+          - name: id
+            tests:
+              - not_null
+              - unique
+
+      - name: weather_underground_la_madeleine_raw
+        description: "Données brutes Weather Underground pour la station 
+La Madeleine."
+        columns:
+          - name: id
+            tests:
+              - not_null
+              - unique
