@@ -1,4 +1,13 @@
-{{ config(materialized='table') }}
+{{ 
+    config(
+        materialized='table',
+        indexes=[
+            {'columns': ['station_id']},
+            {'columns': ['measured_at_utc']},
+            {'columns': ['station_id', 'measured_at_utc']}
+        ]
+    ) 
+}}
 
 select
     station_id,

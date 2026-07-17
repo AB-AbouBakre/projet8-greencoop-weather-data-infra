@@ -1,5 +1,11 @@
-{{ config(materialized='table') }}
-
+{{ 
+    config(
+        materialized='table',
+        indexes=[
+            {'columns': ['station_id'], 'unique': True}
+        ]
+    ) 
+}}
 select
     station_id,
     station_name,
