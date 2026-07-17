@@ -39,3 +39,11 @@ temp/
 dbt_greencoop/README.md
 dbt_greencoop/.gitignore
 dbt_greencoop/package-lock.yml
+
+
+# Dossiers DBT vides non utilisés
+dbt_greencoop/analyses/
+dbt_greencoop/macros/
+dbt_greencoop/seeds/
+dbt_greencoop/snapshots/
+dbt_greencoop/tests/
