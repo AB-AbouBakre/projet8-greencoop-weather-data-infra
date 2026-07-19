@@ -31,3 +31,19 @@ Poste local
             |-- modèles staging / intermediate / marts
             |-- tests qualité
             |-- documentation DBT
+## Complément AWS
+
+Une architecture AWS cible détaillée est disponible dans le fichier :
+
+`livrables/architecture/aws_cible.md`
+
+Cette architecture précise les services proposés pour le passage en production :
+
+- Amazon S3 pour le stockage des fichiers sources
+- Airbyte sur AWS pour l'ingestion
+- Amazon RDS PostgreSQL pour la base centrale
+- DBT sur ECS Fargate pour les transformations
+- EventBridge pour la planification
+- CloudWatch pour les logs et alertes
+- Secrets Manager pour la sécurité des identifiants
+- SageMaker pour l'exploitation par les Data Scientists
