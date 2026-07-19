@@ -49,6 +49,12 @@ Les captures sélectionnées pour le livrable sont rangées dans :
 - `12_dbt_docs_project_structure_final.png`  
   Structure finale du projet DBT.
 
+  - `13_airbyte_sync_success_288_records.png`  
+  Synchronisation Airbyte réussie avec 288 lignes chargées.
+
+- `14_postgresql_airbyte_table_count_288.png`  
+  Vérification PostgreSQL de la table `raw.wu_ichtegem_csv` avec 288 lignes.
+
 ## Utilisation dans le livrable
 
 Ces captures permettent de prouver :
