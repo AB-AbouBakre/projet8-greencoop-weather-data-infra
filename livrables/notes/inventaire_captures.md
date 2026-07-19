@@ -1,31 +1,62 @@
 # Inventaire des captures - Projet 8
 
-## PostgreSQL
+Les captures sélectionnées pour le livrable sont rangées dans :
 
-- Conteneur Docker PostgreSQL actif
-- Tables du schéma `raw`
-- Comptage des lignes dans les tables RAW
-- Tables du schéma `analytics`
+`livrables/screenshots_selection/`
+
+## GitHub
+
+- `00_github_branches_repository.png`  
+  Vue du dépôt GitHub avec les branches principales.
 
 ## Airbyte
 
-- Airbyte accessible sur `http://localhost:8000`
-- Destination PostgreSQL configurée
-- Test de connexion destination réussi
-- Éventuellement : tentative de source File / limite rencontrée en local
+- `01_airbyte_initial_setup_preferences.png`  
+  Configuration initiale Airbyte.
 
-## DBT
+- `02_airbyte_connections_overview.png`  
+  Vue d'ensemble des connexions Airbyte.
 
-- `dbt debug` : connexion PostgreSQL réussie
-- `dbt run` : pipeline exécuté avec succès
-- `dbt test` : 18 tests réussis
-- DBT Docs : structure du projet
-- DBT Docs : sources RAW
-- DBT Docs : lineage graph corrigé
-- DBT Docs : modèle `fact_weather_observations`
-- DBT Docs : modèle `dim_weather_stations`
+- `03_airbyte_postgres_destination_settings.png`  
+  Paramétrage de la destination PostgreSQL.
 
-## Résultat final
+- `04_airbyte_postgres_destination_created.png`  
+  Destination PostgreSQL créée.
 
-- `dim_weather_stations` : 6 stations
-- `fact_weather_observations` : 1719 observations
+- `05_airbyte_destination_sidebar.png`  
+  Vue de la destination dans l'interface Airbyte.
+
+- `06_airbyte_file_source_local_url_error.png`  
+  Erreur rencontrée avec la source fichier locale.
+
+## DBT Docs
+
+- `07_dbt_docs_database_raw_table.png`  
+  Vue d'une table RAW dans DBT Docs.
+
+- `08_dbt_docs_project_sources_and_marts.png`  
+  Vue du projet DBT avec sources et marts.
+
+- `09_dbt_docs_raw_sources_overview.png`  
+  Vue des sources RAW déclarées.
+
+- `10_dbt_docs_database_analytics_and_raw.png`  
+  Vue des schémas `analytics` et `raw`.
+
+- `11_dbt_docs_lineage_corrected.png`  
+  Graphe de lineage corrigé : raw → staging → intermediate → marts.
+
+- `12_dbt_docs_project_structure_final.png`  
+  Structure finale du projet DBT.
+
+## Utilisation dans le livrable
+
+Ces captures permettent de prouver :
+
+- la mise en place de GitHub
+- la configuration Airbyte
+- la destination PostgreSQL
+- la difficulté rencontrée avec la source fichier locale
+- la documentation DBT
+- la structure du projet DBT
+- le lineage complet du pipeline ELT
