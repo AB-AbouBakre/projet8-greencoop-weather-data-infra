@@ -47,3 +47,5 @@ dbt_greencoop/macros/
 dbt_greencoop/seeds/
 dbt_greencoop/snapshots/
 dbt_greencoop/tests/
+
+livrables/presentation/
