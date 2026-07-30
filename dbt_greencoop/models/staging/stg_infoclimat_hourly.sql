@@ -6,7 +6,7 @@ with hourly_data as (
         station_key,
         measurement
     from {{ source('raw', 'infoclimat_raw') }},
-    jsonb_each(raw_data -> 'hourly') as h(station_key, measurements),
+    jsonb_each(raw_data::jsonb -> 'hourly') as h(station_key, measurements),
     jsonb_array_elements(measurements) as measurement
 
 )

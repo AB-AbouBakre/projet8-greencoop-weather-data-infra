@@ -12,4 +12,4 @@ select
     station -> 'license' ->> 'url' as license_url,
     station -> 'license' ->> 'metadonnees' as metadata_url
 from {{ source('raw', 'infoclimat_raw') }},
-jsonb_array_elements(raw_data -> 'stations') as station
+jsonb_array_elements(raw_data::jsonb -> 'stations') as station

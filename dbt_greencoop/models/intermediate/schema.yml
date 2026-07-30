@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: int_weather_underground
+    description: >
+      Union normalisée des relevés Weather Underground des stations
+      Ichtegem et La Madeleine.
+
+    columns:
+      - name: airbyte_raw_id
+        description: Identifiant technique unique généré par Airbyte.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: station_id
+        description: Identifiant de la station météorologique.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - IICHTE19
+                  - ILAMAD25
+
+      - name: measured_time
+        description: Heure du relevé météorologique.
+        data_tests:
+          - not_null
+
+      - name: temperature_c
+        description: Température en degrés Celsius.
+        data_tests:
+          - not_null
+
+      - name: humidity_pct
+        description: Humidité relative en pourcentage.
+        data_tests:
+          - not_null
+
+      - name: loaded_at
+        description: Horodatage d’extraction Airbyte.
+        data_tests:
+          - not_null

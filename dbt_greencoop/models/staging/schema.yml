@@ -1,0 +1,83 @@
+version: 2
+
+models:
+  - name: stg_wu_ichtegem
+    description: >
+      Données météorologiques Weather Underground de la station IICHTE19,
+      nettoyées, typées et converties dans le système métrique.
+
+    columns:
+      - name: airbyte_raw_id
+        description: Identifiant technique unique généré par Airbyte.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: station_id
+        description: Identifiant de la station Weather Underground.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['IICHTE19']
+
+      - name: measured_time
+        description: Heure du relevé météorologique.
+        data_tests:
+          - not_null
+
+      - name: temperature_c
+        description: Température convertie en degrés Celsius.
+        data_tests:
+          - not_null
+
+      - name: humidity_pct
+        description: Humidité relative en pourcentage.
+        data_tests:
+          - not_null
+
+      - name: loaded_at
+        description: Horodatage d’extraction fourni par Airbyte.
+        data_tests:
+          - not_null
+  - name: stg_wu_la_madeleine
+    description: >
+      Données météorologiques Weather Underground de la station ILAMAD25,
+      nettoyées, typées et converties dans le système métrique.
+
+    columns:
+      - name: airbyte_raw_id
+        description: Identifiant technique unique généré par Airbyte.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: station_id
+        description: Identifiant de la station Weather Underground.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['ILAMAD25']
+
+      - name: measured_time
+        description: Heure du relevé météorologique.
+        data_tests:
+          - not_null
+
+      - name: temperature_c
+        description: Température en degrés Celsius.
+        data_tests:
+          - not_null
+
+      - name: humidity_pct
+        description: Humidité relative en pourcentage.
+        data_tests:
+          - not_null
+
+      - name: loaded_at
+        description: Horodatage d’extraction Airbyte.
+        data_tests:
+          - not_null
+
+

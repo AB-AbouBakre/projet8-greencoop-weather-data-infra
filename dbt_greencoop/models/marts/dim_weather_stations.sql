@@ -1,61 +1,71 @@
-{{ 
+{{
     config(
         materialized='table',
         indexes=[
-            {'columns': ['station_id'], 'unique': True}
+            {'columns': ['station_id'], 'unique': true}
         ]
-    ) 
+    )
 }}
-select
-    station_id,
-    station_name,
-    latitude,
-    longitude,
-    elevation,
-    station_type,
-    'infoclimat' as source_system,
-    null as city,
-    null as hardware,
-    null as software,
-    license_name,
-    license_source,
-    license_url,
-    metadata_url
 
-from {{ ref('stg_infoclimat_stations') }}
+with weather_underground as (
+
+    select *
+    from (
+        values
+            (
+                'IICHTE19',
+                'WeerstationBS',
+                51.092::numeric,
+                2.999::numeric,
+                15::integer,
+                'Ichtegem',
+                'weather_underground',
+                'other',
+                'EasyWeatherV1.6.6'
+            ),
+            (
+                'ILAMAD25',
+                'La Madeleine',
+                50.659::numeric,
+                3.070::numeric,
+                23::integer,
+                'La Madeleine',
+                'weather_underground',
+                'other',
+                'EasyWeatherPro_V5.1.6'
+            )
+    ) as stations (
+        station_id,
+        station_name,
+        latitude,
+        longitude,
+        elevation_m,
+        city,
+        source_system,
+        hardware,
+        software
+    )
+
+),
+
+infoclimat as (
+
+    select
+        station_id,
+        station_name,
+        latitude,
+        longitude,
+        elevation::integer as elevation_m,
+        station_name as city,
+        'infoclimat'::text as source_system,
+        station_type as hardware,
+        null::text as software
+    from {{ ref('stg_infoclimat_stations') }}
+
+)
+
+select * from weather_underground
 
 union all
 
-select
-    'IICHTE19' as station_id,
-    'WeerstationBS' as station_name,
-    51.092::numeric as latitude,
-    2.999::numeric as longitude,
-    15::numeric as elevation,
-    'semi-professional' as station_type,
-    'weather_underground' as source_system,
-    'Ichtegem' as city,
-    'other' as hardware,
-    'EasyWeatherV1.6.6' as software,
-    null as license_name,
-    null as license_source,
-    null as license_url,
-    null as metadata_url
-
-union all
-
-select
-    'ILAMAD25' as station_id,
-    'La Madeleine' as station_name,
-    50.659::numeric as latitude,
-    3.07::numeric as longitude,
-    23::numeric as elevation,
-    'semi-professional' as station_type,
-    'weather_underground' as source_system,
-    'La Madeleine' as city,
-    'other' as hardware,
-    'EasyWeatherPro_V5.1.6' as software,
-    null as license_name,
-    null as license_source,
-    null as license_url,
-    null as metadata_url
+select * from infoclimat

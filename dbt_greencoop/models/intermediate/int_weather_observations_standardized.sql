@@ -1,97 +1,89 @@
 {{ config(materialized='view') }}
 
-with infoclimat as (
+with weather_underground as (
 
     select
+        airbyte_raw_id as observation_id,
         station_id,
-        measured_at_utc,
-        'infoclimat' as source_system,
+        source_system,
+
+        (
+            (date '2024-10-01' + measured_time)
+            at time zone 'Europe/Paris'
+        ) as measured_at_utc,
 
         temperature_c,
-        pressure_hpa,
-        humidity_pct,
         dewpoint_c,
-        visibility_m,
+        humidity_pct,
+
+        wind_direction_text,
+        null::numeric as wind_direction_deg,
+
         wind_speed_kmh,
         wind_gust_kmh,
-        wind_direction_deg,
-        null::text as wind_direction_text,
-        rain_1h_mm,
-        rain_3h_mm,
-        null::numeric as precip_rate_mm,
-        null::numeric as precip_accum_mm,
-        snow_depth_cm,
-        cloud_cover_octas,
-        weather_code,
-        null::numeric as uv_index,
-        null::numeric as solar_w_m2
+        pressure_hpa,
 
-    from {{ ref('stg_infoclimat_hourly') }}
+        precip_rate_mm as rain_1h_mm,
+        null::numeric as rain_3h_mm,
+        precip_accum_mm,
+
+        null::numeric as snow_depth_cm,
+        null::numeric as cloud_cover_octas,
+        null::text as weather_code,
+
+        uv_index,
+        solar_w_m2,
+        null::numeric as visibility_m,
+
+        loaded_at
+
+    from {{ ref('int_weather_underground') }}
 
 ),
 
-wu as (
+infoclimat as (
 
     select
+        md5(
+            station_id || '|' ||
+            measured_at_utc::text
+        ) as observation_id,
+
         station_id,
-        ('2024-10-01'::date + measured_time)::timestamp as measured_at_utc,
-        source_system,
+        'infoclimat'::text as source_system,
+        measured_at_utc,
 
         temperature_c,
-        pressure_hpa,
-        humidity_pct,
         dewpoint_c,
-        null::numeric as visibility_m,
+        humidity_pct,
+
+        null::text as wind_direction_text,
+        wind_direction_deg,
+
         wind_speed_kmh,
         wind_gust_kmh,
-        null::numeric as wind_direction_deg,
-        wind_direction_text,
-        null::numeric as rain_1h_mm,
-        null::numeric as rain_3h_mm,
-        precip_rate_mm,
-        precip_accum_mm,
-        null::numeric as snow_depth_cm,
-        null::numeric as cloud_cover_octas,
-        null::text as weather_code,
-        uv_index,
-        solar_w_m2
-
-    from {{ ref('stg_wu_ichtegem') }}
-
-    union all
-
-    select
-        station_id,
-        ('2024-10-01'::date + measured_time)::timestamp as measured_at_utc,
-        source_system,
-
-        temperature_c,
         pressure_hpa,
-        humidity_pct,
-        dewpoint_c,
-        null::numeric as visibility_m,
-        wind_speed_kmh,
-        wind_gust_kmh,
-        null::numeric as wind_direction_deg,
-        wind_direction_text,
-        null::numeric as rain_1h_mm,
-        null::numeric as rain_3h_mm,
-        precip_rate_mm,
-        precip_accum_mm,
-        null::numeric as snow_depth_cm,
-        null::numeric as cloud_cover_octas,
-        null::text as weather_code,
-        uv_index,
-        solar_w_m2
 
-    from {{ ref('stg_wu_la_madeleine') }}
+        rain_1h_mm,
+        rain_3h_mm,
+        null::numeric as precip_accum_mm,
+
+        snow_depth_cm,
+        cloud_cover_octas,
+        weather_code,
+
+        null::numeric as uv_index,
+        null::numeric as solar_w_m2,
+        visibility_m,
+
+        null::timestamptz as loaded_at
+
+    from {{ ref('stg_infoclimat_hourly') }}
 
 )
 
-select *
-from infoclimat
+select * from weather_underground
 
 union all
 
-select *
-from wu
+select * from infoclimat
